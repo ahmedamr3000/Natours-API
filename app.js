@@ -9,6 +9,7 @@ import helmet from 'helmet';
 import ExpressMongoSanitize from 'express-mongo-sanitize';
 import xss from 'xss-clean';
 import hpp from 'hpp';
+import compression from 'compression';
 
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -19,13 +20,13 @@ const __dirname = path.dirname(__filename);
 
 process.on('uncaughtException', (err) => {
   // any promise error
-  console.log(err.name, err.message);
+  // console.log(err.name, err.message);
   process.exit(1);
 });
 mongoose
   .connect(process.env.DATABASE)
   .then(() => {
-    console.log('mongo is conected');
+    // console.log('mongo is conected');
   })
   .catch((err) => console.log('dataBase Error'));
 
@@ -108,10 +109,13 @@ app.use(
 
 //             end of security middleware
 
+// compression
+app.use(compression());
+
 bootstrap(app, express);
 
 const server = app.listen(4200, () => {
-  console.log('Server is running...');
+  // console.log('Server is running...');
 });
 
 process.on('unhandledRejection', (err) => {

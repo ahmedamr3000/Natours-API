@@ -5,7 +5,7 @@ import 'dotenv/config';
 mongoose
   .connect(process.env.DATABASE)
   .then(() => {
-    console.log('mongo is conected');
+    // console.log('mongo is conected');
   })
   .catch((err) => console.log('dataBase Error'));
 

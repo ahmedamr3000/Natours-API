@@ -7,7 +7,7 @@ const bookingscema = new mongoose.Schema(
       ref: 'Tour',
       required: true,
     },
-    customer: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,

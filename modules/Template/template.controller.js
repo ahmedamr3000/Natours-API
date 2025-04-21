@@ -1,6 +1,7 @@
 import { catchAsync } from '../../units/catchSync.js';
 import Tour from '../../moudels/TourModel.js';
 import appError from '../../Error/appError.js';
+import booking from '../../moudels/booking.js';
 
 export const overview = catchAsync(async (req, res, next) => {
   const tours = await Tour.find();
@@ -44,5 +45,14 @@ export const account = catchAsync(async (req, res, next) => {
 
   res.status(200).render('account', {
     title: 'Your account',
+  });
+});
+export const getMyTours = catchAsync(async (req, res, next) => {
+  const bookings = await booking.find({ user: req.user.id });
+  const tourIDs = bookings.map((el) => el.tour);
+  const tours = await Tour.find({ _id: { $in: tourIDs } });
+  res.status(200).render('overview', {
+    title: 'MY Tours',
+    tours,
   });
 });
